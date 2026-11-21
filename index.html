@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101522">
+  <title>Free Trigonometry — Free Online Games</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #131b2d;
+      --panel-hover: #1a2640;
+      --border: #26344d;
+      --text: #f3f6ff;
+      --muted: #9aa8c0;
+      --accent: #39d6c5;
+      --accent-2: #7c8cff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 12% 0%, rgba(57,214,197,.13), transparent 35%),
+        radial-gradient(ellipse at 90% 10%, rgba(124,140,255,.13), transparent 32%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(18px, 5vw, 72px); border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(11,16,32,.72); backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 5;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: -.5px; }
+    .logo {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px;
+      color: #07151b; font-size: 21px; font-weight: 950;
+      background: linear-gradient(135deg, var(--accent), #8af0d7);
+      box-shadow: 0 5px 22px rgba(57,214,197,.22);
+    }
+    .brand span { font-size: 18px; }
+    .nav-note { color: var(--muted); font-size: 13px; }
+    main { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
+    .hero { padding: 72px 0 38px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px;
+      border: 1px solid rgba(57,214,197,.25); border-radius: 999px;
+      color: #8cecdf; background: rgba(57,214,197,.07);
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    h1 { margin: 19px 0 12px; font-size: clamp(38px, 7vw, 66px); line-height: 1.02; letter-spacing: -3px; }
+    h1 span {
+      background: linear-gradient(90deg, var(--accent), #9ba8ff);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { margin: 0 auto; max-width: 570px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+    .toolbar {
+      display: flex; gap: 12px; align-items: center; justify-content: space-between;
+      margin: 22px 0 20px; flex-wrap: wrap;
+    }
+    .section-title { margin: 0; font-size: 21px; letter-spacing: -.5px; }
+    .count { color: var(--muted); font-size: 13px; margin-left: 8px; font-weight: 500; }
+    .search-wrap { position: relative; width: min(300px, 100%); }
+    .search-wrap input {
+      width: 100%; border: 1px solid var(--border); outline: none; border-radius: 12px;
+      padding: 12px 14px 12px 40px; color: var(--text); background: var(--panel);
+      font: inherit; font-size: 13px; transition: .2s;
+    }
+    .search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(57,214,197,.1); }
+    .search-icon { position: absolute; left: 14px; top: 10px; color: var(--muted); }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .filter {
+      border: 1px solid var(--border); border-radius: 999px; padding: 8px 14px;
+      color: var(--muted); background: transparent; cursor: pointer; font: inherit; font-size: 12px;
+      transition: .2s;
+    }
+    .filter:hover, .filter.active { color: #07151b; border-color: var(--accent); background: var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 17px; }
+    .game-card {
+      min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 17px;
+      background: linear-gradient(155deg, rgba(24,35,57,.98), rgba(16,24,41,.98));
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+    .game-card:hover { transform: translateY(-4px); border-color: rgba(57,214,197,.55); box-shadow: 0 14px 34px rgba(0,0,0,.2); }
+    .game-art {
+      height: 145px; display: grid; place-items: center; position: relative; overflow: hidden;
+      background: var(--art, linear-gradient(135deg,#235b67,#182846));
+    }
+    .game-art::before, .game-art::after {
+      content: ""; position: absolute; border: 1px solid rgba(255,255,255,.16); border-radius: 50%;
+      width: 170px; height: 170px; transform: rotate(-25deg);
+    }
+    .game-art::after { width: 230px; height: 230px; transform: translate(75px,35px); }
+    .game-emoji { position: relative; z-index: 1; font-size: 57px; filter: drop-shadow(0 9px 13px rgba(0,0,0,.25)); }
+    .game-info { padding: 16px; }
+    .game-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .game-info h3 { margin: 0; font-size: 16px; letter-spacing: -.2px; }
+    .tag { padding: 4px 8px; border-radius: 6px; background: rgba(124,140,255,.13); color: #b8c0ff; font-size: 10px; font-weight: 750; white-space: nowrap; }
+    .game-info p { min-height: 38px; margin: 9px 0 14px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .play {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      padding: 10px; border-radius: 10px; color: #07151b; background: var(--accent);
+      font-size: 12px; font-weight: 850; transition: filter .2s;
+    }
+    .play:hover { filter: brightness(1.1); }
+    .empty {
+      display: none; padding: 45px 15px; text-align: center; color: var(--muted);
+      border: 1px dashed var(--border); border-radius: 15px;
+    }
+    footer { margin-top: 75px; padding: 25px 0 35px; border-top: 1px solid rgba(255,255,255,.07); color: #75839c; font-size: 12px; text-align: center; }
+    @media (max-width: 560px) {
+      .hero { padding-top: 52px; }
+      .nav-note { display: none; }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .search-wrap { width: 100%; }
+      h1 { letter-spacing: -2px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Free Trigonometry home">
+      <div class="logo">ƒ</div><span>Free Trigonometry</span>
+    </a>
+    <div class="nav-note">A little fun, completely free.</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">✦ Your next favorite game</div>
+      <h1>Play more. <span>Pay never.</span></h1>
+      <p>A collection of games you can jump into whenever you want. Pick a game, hit play, and have fun.</p>
+    </section>
+
+    <section aria-label="Game library">
+      <div class="toolbar">
+        <h2 class="section-title">Explore games <span class="count" id="gameCount"></span></h2>
+        <label class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input id="search" type="search" placeholder="Search games..." autocomplete="off">
+        </label>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="gameGrid"></div>
+      <div class="empty" id="empty">No games found. Try another search.</div>
+    </section>
+
+    <footer>© <span id="year"></span> Free Trigonometry · Made for fun.</footer>
+  </main>
+
+  <script>
+    /*
+      ADDING A GAME IS EASY:
+      1. Put the game's HTML file in the same folder (or a subfolder).
+      2. Copy one game object below and change its details.
+      3. Set "file" to the game's file path, for example: "games/my-game.html".
+
+      Available fields:
+      name        - Game title
+      description - Short description shown on the card
+      file        - Link to the game
+      category    - Category filter (e.g. "Arcade", "Puzzle")
+      emoji       - Large icon on the card
+      color       - Card art gradient (CSS gradient)
+      */
+
+    const games = [
+      {
+        name: "Example Game",
+        description: "Your next game goes here. Replace this example with a real game!",
+        file: "games/example.html",
+        category: "Featured",
+        emoji: "🎮",
+        color: "linear-gradient(135deg, #167c80, #303b78)"
+      },
+      {
+        name: "Coming Soon",
+        description: "Add another game by copying this entry in the games list.",
+        file: "#",
+        category: "More",
+        emoji: "✨",
+        color: "linear-gradient(135deg, #7547a8, #bd5c83)"
+      }
+    ];
+
+    const grid = document.getElementById("gameGrid");
+    const search = document.getElementById("search");
+    const filters = document.getElementById("filters");
+    const empty = document.getElementById("empty");
+    const count = document.getElementById("gameCount");
+    let activeCategory = "All";
+
+    function getCategories() {
+      return ["All", ...new Set(games.map(game => game.category || "Other"))];
+    }
+
+    function renderFilters() {
+      filters.innerHTML = getCategories().map(category => `
+        <button class="filter ${category === activeCategory ? "active" : ""}"
+          type="button" data-category="${escapeHTML(category)}">${escapeHTML(category)}</button>
+      `).join("");
+    }
+
+    function renderGames() {
+      const term = search.value.trim().toLowerCase();
+      const shown = games.filter(game => {
+        const matchesCategory = activeCategory === "All" || (game.category || "Other") === activeCategory;
+        const matchesSearch = `${game.name} ${game.description} ${game.category}`.toLowerCase().includes(term);
+        return matchesCategory && matchesSearch;
+      });
+
+      grid.innerHTML = shown.map(game => {
+        const unavailable = !game.file || game.file === "#";
+        return `
+          <article class="game-card">
+            <div class="game-art" style="--art: ${game.color || "linear-gradient(135deg,#235b67,#182846)"}">
+              <span class="game-emoji">${escapeHTML(game.emoji || "🎮")}</span>
+            </div>
+            <div class="game-info">
+              <div class="game-meta">
+                <h3>${escapeHTML(game.name)}</h3>
+                <span class="tag">${escapeHTML(game.category || "Other")}</span>
+              </div>
+              <p>${escapeHTML(game.description || "Jump in and play.")}</p>
+              ${unavailable
+                ? '<span class="play" style="opacity:.45;cursor:not-allowed">Coming soon</span>'
+                : `<a class="play" href="${escapeHTML(game.file)}">Play now <span aria-hidden="true">→</span></a>`}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      count.textContent = `(${shown.length} ${shown.length === 1 ? "game" : "games"})`;
+      empty.style.display = shown.length ? "none" : "block";
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    filters.addEventListener("click", event => {
+      const button = event.target.closest("button[data-category]");
+      if (!button) return;
+      activeCategory = button.dataset.category;
+      renderFilters();
+      renderGames();
+    });
+
+    search.addEventListener("input", renderGames);
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    renderFilters();
+    renderGames();
+  </script>
+</body>
+</html>
